@@ -6,9 +6,11 @@ type ModelType = {
 };
 
 export default class Model extends Node {
+  id: number;
+
   constructor(data?: ModelType) {
-    super();
-    this.key = `model-${data?.id}`;
+    super(`model-${data?.id || 0}`);
+    this.id = data?.id || 0;
     this.title = data?.title;
   }
 }

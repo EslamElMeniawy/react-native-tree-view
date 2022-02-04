@@ -3,7 +3,7 @@ export default class Node {
   title?: string;
   children?: Node[];
 
-  constructor() {
-    this.key = '';
+  constructor(key: string) {
+    this.key = key;
   }
 }

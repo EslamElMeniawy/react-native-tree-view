@@ -6,9 +6,11 @@ type VariantType = {
 };
 
 export default class Variant extends Node {
+  id: number;
+
   constructor(data?: VariantType) {
-    super();
-    this.key = `variant-${data?.id}`;
+    super(`variant-${data?.id || 0}`);
+    this.id = data?.id || 0;
     this.title = data?.title;
   }
 }

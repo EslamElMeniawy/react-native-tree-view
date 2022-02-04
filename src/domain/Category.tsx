@@ -6,9 +6,11 @@ type CategoryType = {
 };
 
 export default class Category extends Node {
+  id: number;
+
   constructor(data?: CategoryType) {
-    super();
-    this.key = `category-${data?.id}`;
+    super(`category-${data?.id || 0}`);
+    this.id = data?.id || 0;
     this.title = data?.title;
   }
 }

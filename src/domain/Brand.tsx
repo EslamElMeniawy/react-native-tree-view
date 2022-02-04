@@ -6,9 +6,11 @@ type BrandType = {
 };
 
 export default class Brand extends Node {
+  id: number;
+
   constructor(data?: BrandType) {
-    super();
-    this.key = `brand-${data?.id}`;
+    super(`brand-${data?.id || 0}`);
+    this.id = data?.id || 0;
     this.title = data?.title;
   }
 }
