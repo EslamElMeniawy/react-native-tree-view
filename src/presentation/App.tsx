@@ -7,8 +7,9 @@ import {
 } from 'react-native';
 
 import Colors from './Colors';
-
 import Tree from './components/Tree';
+import {CategoriesDataSource} from '../data/CategoriesDataSource';
+import CategoriesDataSourceImp from '../data/CategoriesDataSource';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -17,13 +18,16 @@ const App = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const categoriesDataSource: CategoriesDataSource =
+    new CategoriesDataSourceImp();
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <Tree />
+        <Tree items={categoriesDataSource.read()} />
       </ScrollView>
     </SafeAreaView>
   );

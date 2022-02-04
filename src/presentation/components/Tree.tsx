@@ -5,13 +5,16 @@ import Colors from '../Colors';
 import Node from '../../domain/Node';
 
 interface Props {
-  isDarkMode: boolean;
   items?: Array<Node>;
+}
+
+interface PropsWithDarkMode extends Props {
+  isDarkMode: boolean;
 }
 
 interface State {}
 
-class Tree extends React.PureComponent<Props, State> {
+class Tree extends React.PureComponent<PropsWithDarkMode, State> {
   render(): null | React.ReactElement {
     const {isDarkMode, items} = this.props;
 
@@ -27,7 +30,7 @@ class Tree extends React.PureComponent<Props, State> {
   }
 }
 
-export default () => {
+export default (props: Props) => {
   const isDarkMode = useColorScheme() === 'dark';
-  return <Tree isDarkMode={isDarkMode} />;
+  return <Tree isDarkMode={isDarkMode} {...props} />;
 };
