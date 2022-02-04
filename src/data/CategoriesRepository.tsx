@@ -1,5 +1,4 @@
-import {CategoriesDataSource} from './CategoriesDataSource';
-import Category from '../domain/Category';
+import CategoriesDataSource from './CategoriesDataSource';
 
 export default class CategoriesRepository {
   _dataSource: CategoriesDataSource;
@@ -8,7 +7,7 @@ export default class CategoriesRepository {
     this._dataSource = dataSource;
   }
 
-  read: () => Category[] | undefined = () => {
+  getCategories = () => {
     return this._dataSource.read();
   };
 }

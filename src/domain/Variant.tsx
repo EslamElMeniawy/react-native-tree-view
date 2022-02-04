@@ -1,7 +1,14 @@
 import Node from './Node';
 
-interface Variant extends Node {
+type VariantType = {
   id: number;
-}
+  title?: string;
+};
 
-export default Variant;
+export default class Variant extends Node {
+  constructor(data?: VariantType) {
+    super();
+    this.key = `variant-${data?.id}`;
+    this.title = data?.title;
+  }
+}

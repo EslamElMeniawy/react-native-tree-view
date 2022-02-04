@@ -8,27 +8,38 @@ import {
 
 import Colors from './Colors';
 import Tree from './components/Tree';
-import {CategoriesDataSource} from '../data/CategoriesDataSource';
-import CategoriesDataSourceImp from '../data/CategoriesDataSource';
+import Category from '../domain/Category';
+
+type Props = {
+  isDarkMode: boolean;
+};
+
+type State = {
+  categories?: Category[];
+};
+
+class App extends React.PureComponent<Props, State> {
+  render() {
+    const {isDarkMode} = this.props;
+
+    const backgroundStyle = {
+      backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    };
+
+    return (
+      <SafeAreaView style={backgroundStyle}>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+        <ScrollView
+          contentInsetAdjustmentBehavior="automatic"
+          style={backgroundStyle}>
+          <Tree />
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
+}
 
 export default () => {
   const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  const categoriesDataSource: CategoriesDataSource =
-    new CategoriesDataSourceImp();
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Tree items={categoriesDataSource.read()} />
-      </ScrollView>
-    </SafeAreaView>
-  );
+  return <App isDarkMode={isDarkMode} />;
 };

@@ -1,7 +1,9 @@
-interface Node {
+export default class Node {
   key: string;
   title?: string;
-  children?: Array<Node>;
-}
+  children?: Node[];
 
-export default Node;
+  constructor() {
+    this.key = '';
+  }
+}

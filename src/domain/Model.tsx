@@ -1,7 +1,14 @@
 import Node from './Node';
 
-interface Model extends Node {
+type ModelType = {
   id: number;
-}
+  title?: string;
+};
 
-export default Model;
+export default class Model extends Node {
+  constructor(data?: ModelType) {
+    super();
+    this.key = `model-${data?.id}`;
+    this.title = data?.title;
+  }
+}

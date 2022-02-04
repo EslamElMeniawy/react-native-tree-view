@@ -5,7 +5,7 @@ import Colors from '../Colors';
 import Node from '../../domain/Node';
 
 interface Props {
-  items?: Array<Node>;
+  items?: Node[];
 }
 
 export default (props: Props) => {
