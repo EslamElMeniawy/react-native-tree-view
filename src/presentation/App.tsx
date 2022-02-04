@@ -11,7 +11,7 @@ import Tree from './components/Tree';
 import {CategoriesDataSource} from '../data/CategoriesDataSource';
 import CategoriesDataSourceImp from '../data/CategoriesDataSource';
 
-const App = () => {
+export default () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -32,5 +32,3 @@ const App = () => {
     </SafeAreaView>
   );
 };
-
-export default App;

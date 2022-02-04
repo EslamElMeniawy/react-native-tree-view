@@ -8,29 +8,17 @@ interface Props {
   items?: Array<Node>;
 }
 
-interface PropsWithDarkMode extends Props {
-  isDarkMode: boolean;
-}
-
-interface State {}
-
-class Tree extends React.PureComponent<PropsWithDarkMode, State> {
-  render(): null | React.ReactElement {
-    const {isDarkMode, items} = this.props;
-
-    if (items && items.length) {
-      const backgroundStyle = {
-        backgroundColor: isDarkMode ? Colors.black : Colors.white,
-      };
-
-      return <View style={backgroundStyle}>{}</View>;
-    }
-
-    return null;
-  }
-}
-
 export default (props: Props) => {
   const isDarkMode = useColorScheme() === 'dark';
-  return <Tree isDarkMode={isDarkMode} {...props} />;
+  const {items} = props;
+
+  if (items && items.length) {
+    const backgroundStyle = {
+      backgroundColor: isDarkMode ? Colors.black : Colors.white,
+    };
+
+    return <View style={backgroundStyle}>{}</View>;
+  }
+
+  return null;
 };
