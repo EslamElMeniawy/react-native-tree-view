@@ -18,6 +18,14 @@ type State = {
 };
 
 class TreeNode extends React.PureComponent<PropsWithDarkMode, State> {
+  constructor(props: PropsWithDarkMode) {
+    super(props);
+
+    this.state = {
+      isOpened: false,
+    };
+  }
+
   render() {
     const {node, isRoot} = this.props;
 
