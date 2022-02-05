@@ -13,6 +13,7 @@ import Node from '../../domain/Node';
 interface Props {
   node?: Node;
   isRoot?: boolean;
+  onNodeSelectChange?: (node: Node) => void;
 }
 
 interface PropsWithDarkMode extends Props {
@@ -21,6 +22,7 @@ interface PropsWithDarkMode extends Props {
 
 type State = {
   isOpened: boolean;
+  isSelected: boolean;
 };
 
 class TreeNode extends React.PureComponent<PropsWithDarkMode, State> {
@@ -32,6 +34,7 @@ class TreeNode extends React.PureComponent<PropsWithDarkMode, State> {
 
     this.state = {
       isOpened: false,
+      isSelected: props.node?.isSelected || false,
     };
   }
 
@@ -47,11 +50,16 @@ class TreeNode extends React.PureComponent<PropsWithDarkMode, State> {
 
   _onCheckPress = () => {
     if (this._isComponentMounted) {
-      const {node} = this.props;
+      const {node, onNodeSelectChange} = this.props;
 
       if (node) {
         node.isSelected = !node?.isSelected;
-        this.forceUpdate();
+
+        if (onNodeSelectChange) {
+          onNodeSelectChange(node);
+        }
+
+        this.setState({isSelected: node.isSelected});
       }
     }
   };
@@ -81,7 +89,8 @@ class TreeNode extends React.PureComponent<PropsWithDarkMode, State> {
   };
 
   _getCurrentNodeCheck = () => {
-    const {node, isDarkMode} = this.props;
+    const {isDarkMode} = this.props;
+    const {isSelected} = this.state;
 
     const backgroundStyle = {
       backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -94,7 +103,7 @@ class TreeNode extends React.PureComponent<PropsWithDarkMode, State> {
     };
 
     const textStyle = {
-      color: node?.isSelected
+      color: isSelected
         ? borderColor
         : isDarkMode
         ? Colors.darker
@@ -113,7 +122,7 @@ class TreeNode extends React.PureComponent<PropsWithDarkMode, State> {
 
   _getChildren = () => {
     const {isOpened} = this.state;
-    const {node, isDarkMode} = this.props;
+    const {node, isDarkMode, onNodeSelectChange} = this.props;
 
     if (isOpened && node?.children?.length) {
       return node?.children?.map(item => (
@@ -121,6 +130,7 @@ class TreeNode extends React.PureComponent<PropsWithDarkMode, State> {
           key={`tree-node-${item.key}`}
           node={item}
           isDarkMode={isDarkMode}
+          onNodeSelectChange={onNodeSelectChange}
         />
       ));
     }
@@ -133,7 +143,7 @@ class TreeNode extends React.PureComponent<PropsWithDarkMode, State> {
 
     if (node) {
       const marginStyle = {
-        marginStart: isRoot ? 0 : 40,
+        marginStart: isRoot ? 0 : 32,
       };
 
       return (
@@ -164,7 +174,7 @@ const styles = StyleSheet.create({
   nodeCheckContainer: {
     width: 24,
     height: 24,
-    marginHorizontal: 4,
+    marginHorizontal: 8,
     borderWidth: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -176,6 +186,6 @@ const styles = StyleSheet.create({
   nodeTextContainer: {
     flex: 1,
     padding: 4,
-    marginHorizontal: 4,
+    marginHorizontal: 8,
   },
 });

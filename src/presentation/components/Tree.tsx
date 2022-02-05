@@ -7,11 +7,12 @@ import TreeNode from './TreeNode';
 
 interface Props {
   items?: Node[];
+  onNodeSelectChange?: (node: Node) => void;
 }
 
 export default (props: Props) => {
   const isDarkMode = useColorScheme() === 'dark';
-  const {items} = props;
+  const {items, onNodeSelectChange} = props;
 
   if (items && items.length) {
     const backgroundStyle = {
@@ -21,7 +22,12 @@ export default (props: Props) => {
     return (
       <View style={backgroundStyle}>
         {items.map(item => (
-          <TreeNode key={`tree-node-${item.key}`} isRoot node={item} />
+          <TreeNode
+            key={`tree-node-${item.key}`}
+            isRoot
+            node={item}
+            onNodeSelectChange={onNodeSelectChange}
+          />
         ))}
       </View>
     );
