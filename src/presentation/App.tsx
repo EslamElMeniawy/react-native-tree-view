@@ -67,7 +67,7 @@ class App extends React.PureComponent<Props, State> {
       Events.EVENT_APP_CATEGORIES,
       categories => {
         if (this._isComponentMounted) {
-          this.setState(categories);
+          this.setState({categories});
         }
       },
     );
